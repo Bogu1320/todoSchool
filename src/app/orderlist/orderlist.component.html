@@ -1,0 +1,26 @@
+<mat-card class="standardWidthList">
+  <mat-card-header class="cardHeader cardHeaderColor">
+    <h2 *ngIf="!isInEdit" (click)="onClickHeader();">{{orderListName}}</h2>
+
+    <mat-form-field class="full-width" *ngIf="isInEdit">
+      <input matInput autofocus placeholder="List name" class="InEdit" (blur)="onLostFocusHeader()" [(ngModel)]="orderListName">
+    </mat-form-field>
+
+  </mat-card-header>
+
+  <div>
+    <input type="text" class="form-control" [(ngModel)]="itemName">
+  </div>
+  <div>
+    <button mat-fab color="primary" Id="btnAdd" (click)="createNewPositionOnList(itemName)">
+      <i class="material-icons">add</i>
+    </button>
+  </div>
+  <mat-card-content id="listPositions">
+    <mat-selection-list #items>
+      <mat-list-option *ngFor="let item of itemsArray">
+        {{item.name}}
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-card-content>
+</mat-card>
