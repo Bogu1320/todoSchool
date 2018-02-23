@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 import {UserService} from '../../Services/userService';
 import {Router} from '@angular/router';
 import {log} from 'util';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-user-login',
@@ -14,7 +15,7 @@ export class UserLoginComponent implements OnInit {
   @Input() showRegisterButton = true;
   @ViewChild('loginForm') signupForm: NgForm;
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(public snackBar: MatSnackBar, private userService: UserService, private router: Router) {
   }
 
   ngOnInit() {
@@ -32,7 +33,9 @@ export class UserLoginComponent implements OnInit {
 
     if (user !== undefined)
       this.router.navigate(['/main'], {queryParams: {}});
-
+    else {
+      let msg = this.snackBar.open('Invalid user or password!','', {duration: 1500});
+    }
   }
   registerUser(){
     this.router.navigate(['/register']);
