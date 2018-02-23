@@ -1,26 +1,28 @@
 <mat-card class="standardWidthList">
-  <mat-card-header class="cardHeader cardHeaderColor">
-    <h2 *ngIf="!isInEdit" (click)="onClickHeader();">{{orderListName}}</h2>
-
+  <mat-card-header class="mat-form-field">
+    <mat-card-title *ngIf="!isInEdit" (click)="onClickHeader();">
+      {{list.name}}
+    </mat-card-title>
     <mat-form-field class="full-width" *ngIf="isInEdit">
-      <input matInput autofocus placeholder="List name" class="InEdit" (blur)="onLostFocusHeader()" [(ngModel)]="orderListName">
+      <input matInput
+      autofocus
+      placeholder="List name"
+      (blur)="onLostFocusHeader()"
+      maxlength=16
+      [(ngModel)]="list.name"
+      class="full-width"
+      required>
     </mat-form-field>
-
+    <button mat-mini-fab class="close-button" (click)="removeList()"><i class="material-icons">clear</i></button>
   </mat-card-header>
-
-  <div>
-    <input type="text" class="form-control" [(ngModel)]="itemName">
-  </div>
-  <div>
-    <button mat-fab color="primary" Id="btnAdd" (click)="createNewPositionOnList(itemName)">
-      <i class="material-icons">add</i>
-    </button>
-  </div>
-  <mat-card-content id="listPositions">
-    <mat-selection-list #items>
-      <mat-list-option *ngFor="let item of itemsArray">
+  <mat-form-field class="full-width" style="margin-top:25px">
+    <mat-chip-list #chipList class="mat-chip-list-stacked" aria-orientation="vertical">
+      <mat-chip *ngFor="let item of list.Items" [removable]="removable" (remove)="remove(item)">
         {{item.name}}
-      </mat-list-option>
-    </mat-selection-list>
-  </mat-card-content>
+        <mat-icon matChipRemove *ngIf="removable" class="pull-right">cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="New position..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+        (matChipInputTokenEnd)="add($event)" class="full-width" />
+    </mat-chip-list>
+  </mat-form-field>
 </mat-card>

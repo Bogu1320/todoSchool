@@ -1,0 +1,19 @@
+<div id="loginContainer">
+  <h3>
+    TODO list!
+  </h3>
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <mat-form-field>
+      <input type="text" class="full-width" matInput placeholder="Login" ngModel name="username" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input type="password" class="full-width" matInput placeholder="Password" ngModel name="userPassword" required>
+    </mat-form-field>
+    <br>
+    <div>
+    <button mat-raised-button color="primary" class="pull-left" type="submit">Sign in</button>
+    <button mat-raised-button color="accent" class="pull-right" (click)="registerUser()" id="btnRegister">Register</button>
+    </div>
+  </form>
+</div>

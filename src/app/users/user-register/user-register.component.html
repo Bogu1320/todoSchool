@@ -1,0 +1,19 @@
+<h3>Register new user</h3>
+<form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+  <mat-form-field>
+    <input type="text" matInput id="txtUsername" placeholder="Username" ngModel name="username" required>
+  </mat-form-field>
+  <p class="mat-error" *ngIf="usernameTooShort">Username need to be equal or more than 4 signs.</p>
+  <br>
+  <mat-form-field>
+    <input type="password" matInput id="txtPassword" placeholder="Password" ngModel name="password" required>
+  </mat-form-field>
+  <p class="mat-error" *ngIf="passwordTooShort">Password need to be equal or more than 4 signs.</p>
+  <br>
+  <mat-form-field>
+    <input type="password" matInput id="txtRPassword" placeholder="Repeat password" ngModel name="rpassword" required>
+  </mat-form-field>
+  <p class="mat-error" *ngIf="passwordNotEquals">Passwords are not the same.</p>
+  <br>
+  <button mat-raised-button color="primary" type="submit">Register</button>
+</form>

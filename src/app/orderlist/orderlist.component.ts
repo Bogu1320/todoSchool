@@ -1,6 +1,9 @@
-import { Component, OnInit, Input, Renderer2, ViewChild, ElementRef } from '@angular/core';
-import { Item } from '../models/item.model';
-import { environment } from '../../environments/environment';
+import {Component, Input, OnInit} from '@angular/core';
+import {Item} from '../models/item.model';
+import {ENTER, COMMA} from '@angular/cdk/keycodes';
+import {MatChipInputEvent} from '@angular/material';
+import {ListService} from '../Services/listService';
+import {List} from '../models/list.model';
 
 @Component({
   selector: 'app-orderlist',
@@ -8,30 +11,22 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./orderlist.component.css']
 })
 export class OrderlistComponent implements OnInit {
+  @Input() list: List;
 
-  public orderListName = 'dupa';
+
   isInEdit: Boolean = false;
-  itemName = '';
-  itemsArray: Item [] = [
-     new Item('Pierwszy'),
-     new Item('Drugi'),
-     new Item('Trzeci')
-   ];
+  separatorKeysCodes = [ENTER, COMMA];
+  removable: Boolean = true;
+  addOnBlur: Boolean = true;
 
-  constructor() { }
+  constructor(private listService: ListService) {
+    console.log(this.list);
+  }
+
   ngOnInit() {
+    console.log(this.list);
   }
 
-  onUpdateOrderListName(event: Event) {
-    this.orderListName = (<HTMLInputElement>event.target).value;
-  }
-
-  createNewPositionOnList(itemName: string) {
-    if (itemName !== '') {
-      this.itemsArray.push(new Item(itemName));
-      this.itemName = '';
-    }
-  }
 
   onClickHeader() {
     this.isInEdit = true;
@@ -39,7 +34,32 @@ export class OrderlistComponent implements OnInit {
   }
 
   onLostFocusHeader() {
+    if ((this.list.name === undefined) || (this.list.name.trim() === '') || this.list.name === null)
+      return;
     this.isInEdit = false;
     console.log(this.isInEdit);
+  }
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our item
+    if ((value || '').trim()) {
+      this.list.addItem(new Item(this.list.id, value.trim()));
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(item: any): void {
+    this.list.removeItem(item);
+  }
+
+  removeList() {
+    this.listService.removeList(this.list);
   }
 }

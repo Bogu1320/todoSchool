@@ -1,0 +1,8 @@
+<button mat-fab color="primary" (click)="onAddNewList()"><i class="material-icons" id="btnAddNewList">add</i></button>
+<div style="margin-top: 20px;">
+  <app-orderlist
+    *ngFor="let list of lists"
+    [list]="list"
+    style="display: inline-block; margin: 10px;"
+  ></app-orderlist>
+</div>

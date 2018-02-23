@@ -1,0 +1,19 @@
+<div id="mainContainer">
+  <h2 class="modal-header" id="header">
+    Welcome in TODO list application!
+  </h2>
+  <hr>
+  <div>
+    <ul>
+      <button mat-raised-button color="primary" routerLinkActive="active" routerLink="lists">Your lists</button>
+      <button mat-raised-button color="primary" routerLinkActive="active" routerLink="userEdit">Settings</button>
+      <button mat-raised-button color="accent" class="pull-right" routerLinkActive="active" (click)="onLogout()">
+        Logout
+      </button>
+    </ul>
+  </div>
+
+  <div id="routerContainer">
+  <router-outlet></router-outlet>
+  </div>
+</div>

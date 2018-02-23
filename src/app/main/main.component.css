@@ -1,0 +1,8 @@
+#mainContainer{
+ display: grid;
+}
+
+#routerContainer{
+  margin-left: auto;
+  margin-right: auto;
+}
